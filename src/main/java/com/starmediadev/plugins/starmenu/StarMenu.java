@@ -1,4 +1,4 @@
-package com.starmediadev.starmenu;
+package com.starmediadev.plugins.starmenu;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
