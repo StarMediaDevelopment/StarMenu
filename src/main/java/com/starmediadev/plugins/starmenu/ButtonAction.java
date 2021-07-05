@@ -1,8 +1,8 @@
 package com.starmediadev.plugins.starmenu;
 
-import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 
 public interface ButtonAction {
-    
-    void onClick(InventoryClickEvent e);
+    void onClick(Player player, Menu menu, ClickType click);
 }
