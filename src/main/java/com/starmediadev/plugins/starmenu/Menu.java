@@ -1,9 +1,11 @@
 package com.starmediadev.plugins.starmenu;
 
+import com.starmediadev.plugins.starmcutils.builder.ItemBuilder;
 import com.starmediadev.plugins.starmcutils.util.MCUtils;
 import com.starmediadev.utils.Pair;
 import com.starmediadev.utils.collection.IncrementalMap;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -32,6 +34,13 @@ public class Menu implements InventoryHolder {
         int totalSlots = rows * 9;
         for (int i = 0; i < totalSlots; i++) {
             slots.put(i, new Slot(i));
+        }
+    }
+    
+    public void setFiller(Material material, int... slots) {
+        for (int s : slots) {
+            Slot slot = this.slots.get(s);
+            slot.setElement(new Element(ItemBuilder.start(material).build(), s));
         }
     }
 

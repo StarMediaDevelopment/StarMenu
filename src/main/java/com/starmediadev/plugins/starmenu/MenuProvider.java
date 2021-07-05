@@ -19,4 +19,8 @@ public abstract class MenuProvider {
     public String getName() {
         return name;
     }
+
+    public JavaPlugin getPlugin() {
+        return plugin;
+    }
 }
