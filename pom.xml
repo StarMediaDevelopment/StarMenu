@@ -104,6 +104,12 @@
             <classifier>remapped-mojang</classifier>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.starmediadev.plugins</groupId>
+            <artifactId>starmcutils</artifactId>
+            <version>1.1.2-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <distributionManagement>
