@@ -37,10 +37,27 @@ public class Menu implements InventoryHolder {
         }
     }
     
-    public void setFiller(Material material, int... slots) {
+    public void addElements(Element... elements) {
+        for (Element element : elements) {
+            addElement(element);
+        }
+    }
+    
+    public void setFillerRange(Material material, int from, int to) {
+        for (int i = from; i < to; i++) {
+            Slot slot = this.slots.get(i);
+            if (slot.getElement() == null) {
+                slot.setElement(new FillerElement(material, i));
+            }
+        }
+    }
+    
+    public void setFillerSlots(Material material, int... slots) {
         for (int s : slots) {
             Slot slot = this.slots.get(s);
-            slot.setElement(new Element(ItemBuilder.start(material).build(), s));
+            if (slot.getElement() == null) {
+                slot.setElement(new FillerElement(material, s));
+            }
         }
     }
 
