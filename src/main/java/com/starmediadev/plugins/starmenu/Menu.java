@@ -1,16 +1,14 @@
 package com.starmediadev.plugins.starmenu;
 
 import com.starmediadev.plugins.starmcutils.util.MCUtils;
+import com.starmediadev.utils.Pair;
 import com.starmediadev.utils.collection.IncrementalMap;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 public class Menu implements InventoryHolder {
     
@@ -44,15 +42,9 @@ public class Menu implements InventoryHolder {
         int invSize = rows * 9;
         Inventory inv = Bukkit.createInventory(this, invSize, MCUtils.color(title));
         
-        IncrementalMap<Element> nonStaticElements = new IncrementalMap<>();
-        Set<Element> staticElements = new HashSet<>();
-        for (Element value : this.elements.values()) {
-            if (!value.isStatic()) {
-                nonStaticElements.add(value);
-            } else {
-                staticElements.add(value);
-            }
-        }
+        var filtered = filterElements();
+        var staticElements = filtered.getValue2();
+        var nonStaticElements = filtered.getValue1();
 
         for (Element staticElement : staticElements) {
             if (staticElement.getStaticIndex() > invSize) {
@@ -91,5 +83,65 @@ public class Menu implements InventoryHolder {
     
     public Slot getSlot(int index) {
         return this.slots.get(index);
+    }
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(int currentPage) {
+        this.currentPage = currentPage;
+    }
+    
+    public int getTotalPages() {
+        int invSize = rows * 9;
+        var filtered = filterElements();
+
+        int pageSize = invSize - filtered.getValue2().getElements().size();
+        return (int) Math.ceil(filtered.getValue1().getElements().size() / (pageSize * 1.0));
+    }
+    
+    protected Pair<NormalElements, StaticElements> filterElements() {
+        int invSize = rows * 9;
+        var normalElements = new NormalElements();
+        var staticElements = new StaticElements();
+        for (Element value : this.elements.values()) {
+            if (!value.isStatic()) {
+                normalElements.add(value);
+            } else {
+                staticElements.add(value);
+            }
+        }
+        return new Pair<>(normalElements, staticElements);
+    }
+    
+    protected static class ElementFilter implements Iterable<Element> {
+        IncrementalMap<Element> elements = new IncrementalMap<>();
+        public void add(Element element) {
+            elements.add(element);
+        }
+        public IncrementalMap<Element> getElements() {
+            return elements;
+        }
+        
+        public Iterator<Element> iterator() {
+            return elements.values().iterator();
+        }
+        
+        public int size() {
+            return elements.size();
+        }
+        
+        public Element get(int index) {
+            return elements.get(index);
+        }
+    }
+    
+    protected static class StaticElements extends ElementFilter {
+        
+    }
+    
+    protected static class NormalElements extends ElementFilter {
+        
     }
 }
