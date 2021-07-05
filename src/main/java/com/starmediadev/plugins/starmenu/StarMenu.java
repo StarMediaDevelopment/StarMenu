@@ -13,8 +13,7 @@ public class StarMenu extends JavaPlugin implements Listener {
 
     public void onEnable() {
         getServer().getPluginManager().registerEvents(this, this);
-
-
+        
         menuManager = new MenuManager();
         getServer().getServicesManager().register(MenuManager.class, menuManager, this, ServicePriority.Highest);
         menuManager.register(this, new DefaultMenuProvider(this, "default", "default"));
