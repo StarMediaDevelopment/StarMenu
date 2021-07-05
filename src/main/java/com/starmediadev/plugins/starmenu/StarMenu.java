@@ -37,6 +37,7 @@ public class StarMenu extends JavaPlugin implements Listener {
         }
         
         if (element instanceof Button button) {
+            button.playSound(player);
             if (e.isLeftClick()) {
                 if (button.getLeftClickAction() != null) {
                     button.getLeftClickAction().onClick(player, menu, e.getClick());
