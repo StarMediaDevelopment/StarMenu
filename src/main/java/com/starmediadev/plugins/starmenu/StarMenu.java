@@ -48,12 +48,10 @@ public class StarMenu extends JavaPlugin implements Listener {
             menu.setFillerRange(WHITE_STAINED_GLASS_PANE, 0, 8);
             menu.setFillerSlots(WHITE_STAINED_GLASS_PANE, 9, 17, 18, 26, 27, 35, 36, 44);
 
-            int total = 0;
             for (Material material : Material.values()) {
                 String name = material.name().toLowerCase();
                 if (name.contains("_pickaxe") || name.contains("_axe") || name.contains("_sword") || name.contains("_hoe") || name.contains("_shovel")) {
                     menu.addElement(new Element(ItemBuilder.start(material).setDisplayName("&b" + MaterialNames.getName(material)).build()));
-                    total++;
                 }
             }
 
@@ -63,37 +61,27 @@ public class StarMenu extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
-        //Handle clicking of the inventories and passing to the menus
         Player player = (Player) e.getWhoClicked();
         if (!(e.getClickedInventory().getHolder() instanceof Menu menu))
             return;
-        System.out.println("Clicked Inventory is a Menu");
         if (e.getSlot() != e.getRawSlot())
             return;
-        System.out.println("The Slot clicked is a slot in the menu");
         Slot slot = menu.getSlot(e.getSlot());
         if (slot == null)
             return;
-        System.out.println("Slot is " + slot.getIndex());
         Element element = slot.getElement();
-        System.out.println("Element type is " + element.getClass().getName());
         if (element == null || !slot.getElement().isAllowInsert()) {
             e.setCancelled(true);
         }
         
         if (element instanceof Button button) {
-            System.out.println("Element is a button");
             button.playSound(player);
             if (e.isLeftClick()) {
-                System.out.println("Click type is left click");
                 if (button.getLeftClickAction() != null) {
-                    System.out.println("Button Left click action is not null");
                     button.getLeftClickAction().onClick(player, menu, e.getClick());
                 }
             } else if (e.isRightClick()) {
-                System.out.println("Click type is right click");
                 if (button.getRightClickAction() != null) {
-                    System.out.println("Button right click action is not null");
                     button.getRightClickAction().onClick(player, menu, e.getClick());
                 }
             }
@@ -101,6 +89,9 @@ public class StarMenu extends JavaPlugin implements Listener {
             if (e.getAction().name().toLowerCase().contains("pickup_")) {
                 insertElement.onRemove(player, menu);
             } else if (e.getAction().name().toLowerCase().contains("place_")) {
+                if (insertElement.keepOnPageMove()) {
+                    insertElement.setItemStack(e.getCursor());
+                }
                 insertElement.onInsert(player, menu, e.getCursor());
             }
         }

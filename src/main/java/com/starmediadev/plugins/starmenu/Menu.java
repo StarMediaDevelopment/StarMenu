@@ -14,15 +14,13 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class Menu implements InventoryHolder {
-    //TODO Maybe store filler slots and elements separately and handle those after?
-    
-    protected JavaPlugin plugin; //The plugin that registered this menu
-    protected String name; //Can be used to get from a cache/used by other plugins if needed/wanted
-    protected String title; //The title for this menu, this is displayed in the title of the menu in game
-    protected int rows; //Must be multiplied by 9
-    protected IncrementalMap<Element> elements = new IncrementalMap<>(); //All elements provided to this menu. This is used to build pages
-    protected Map<Integer, Slot> slots = new TreeMap<>(); //All slots for the menu, this is auto-generated and is used for setting and building the menu
-    protected int currentPage = 1; //The current page that the menu is on. 
+    protected JavaPlugin plugin;
+    protected String name;
+    protected String title;
+    protected int rows;
+    protected IncrementalMap<Element> elements = new IncrementalMap<>();
+    protected Map<Integer, Slot> slots = new TreeMap<>();
+    protected int currentPage = 1;
     
     public Menu(JavaPlugin plugin, String name, String title, int rows) {
         this.plugin = plugin;
@@ -37,6 +35,12 @@ public class Menu implements InventoryHolder {
         for (int i = 0; i < totalSlots; i++) {
             slots.put(i, new Slot(i));
         }
+    }
+    
+    public void setElement(int row, int column, Element element) {
+        int position = (row * 9) + column;
+        Slot slot = getSlot(position);
+        slot.setElement(element);
     }
     
     public void addElements(Element... elements) {
@@ -144,11 +148,7 @@ public class Menu implements InventoryHolder {
         var normalElements = filtered.getValue1();
         var staticElements = filtered.getValue2();
         
-        System.out.println("Total normal elements " + normalElements.size());
-        System.out.println("Total static elements " + staticElements.size());
-        
         int pageSize = invSize - staticElements.size();
-        System.out.println("Page Size " + pageSize);
         return (int) Math.ceil(normalElements.size() / (pageSize * 1.0));
     }
     
@@ -156,7 +156,6 @@ public class Menu implements InventoryHolder {
         int invSize = rows * 9;
         var normalElements = new NormalElements();
         var staticElements = new StaticElements();
-        System.out.println("Total Elements " + this.elements.size());
         for (Element value : this.elements.values()) {
             if (value.isStatic()) {
                 staticElements.add(value);
