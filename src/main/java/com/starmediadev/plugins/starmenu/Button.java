@@ -1,8 +1,6 @@
 package com.starmediadev.plugins.starmenu;
 
-import org.apache.logging.log4j.core.layout.PatternLayout;
 import org.bukkit.Sound;
-import org.bukkit.SoundCategory;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

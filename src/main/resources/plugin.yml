@@ -1,0 +1,5 @@
+main: com.starmediadev.plugins.starmenu.StarMenu
+version: ${project.version}
+api-version: 1.17
+name: StarMenu
+depend: [StarMCUtils]

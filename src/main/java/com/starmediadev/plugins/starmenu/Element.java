@@ -8,6 +8,7 @@ public class Element {
     protected boolean isStatic; //If this element persists across all pages
     protected int staticIndex; //The index of where this element is when it is static
     protected boolean allowInsert; //Allow inserting of items into this element when it is in a slot
+    protected boolean isReplaceable; //Allow replacing this element when building the menu
 
     public Element(ItemStack itemStack) {
         this.itemStack = itemStack;
@@ -19,6 +20,10 @@ public class Element {
         if (staticIndex > -1) {
             this.isStatic = true;
         }
+    }
+
+    public boolean isReplaceable() {
+        return isReplaceable;
     }
 
     public ItemStack getItemStack() {
