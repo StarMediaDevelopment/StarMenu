@@ -1,4 +1,6 @@
-package com.starmediadev.plugins.starmenu;
+package com.starmediadev.plugins.starmenu.slot;
+
+import com.starmediadev.plugins.starmenu.element.Element;
 
 public class Slot {
     

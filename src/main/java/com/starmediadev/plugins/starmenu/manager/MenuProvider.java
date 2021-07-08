@@ -1,5 +1,6 @@
-package com.starmediadev.plugins.starmenu;
+package com.starmediadev.plugins.starmenu.manager;
 
+import com.starmediadev.plugins.starmenu.gui.Menu;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public abstract class MenuProvider {

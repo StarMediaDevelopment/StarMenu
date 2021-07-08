@@ -1,7 +1,8 @@
-package com.starmediadev.plugins.starmenu;
+package com.starmediadev.plugins.starmenu.element.button;
 
 import com.starmediadev.plugins.starmcutils.builder.ItemBuilder;
 import com.starmediadev.plugins.starmcutils.util.MCUtils;
+import com.starmediadev.plugins.starmenu.StarMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 

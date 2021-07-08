@@ -1,4 +1,4 @@
-package com.starmediadev.plugins.starmenu;
+package com.starmediadev.plugins.starmenu.element;
 
 import org.bukkit.inventory.ItemStack;
 

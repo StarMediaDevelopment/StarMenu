@@ -1,5 +1,6 @@
-package com.starmediadev.plugins.starmenu;
+package com.starmediadev.plugins.starmenu.element.button;
 
+import com.starmediadev.plugins.starmenu.element.Element;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

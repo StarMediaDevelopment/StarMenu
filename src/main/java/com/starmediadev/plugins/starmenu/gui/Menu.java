@@ -1,6 +1,9 @@
-package com.starmediadev.plugins.starmenu;
+package com.starmediadev.plugins.starmenu.gui;
 
 import com.starmediadev.plugins.starmcutils.util.MCUtils;
+import com.starmediadev.plugins.starmenu.element.Element;
+import com.starmediadev.plugins.starmenu.element.FillerElement;
+import com.starmediadev.plugins.starmenu.slot.Slot;
 import com.starmediadev.utils.Pair;
 import com.starmediadev.utils.collection.IncrementalMap;
 import org.bukkit.Bukkit;
