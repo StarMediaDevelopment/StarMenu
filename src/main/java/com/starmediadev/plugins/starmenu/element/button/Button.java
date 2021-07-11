@@ -29,12 +29,14 @@ public class Button extends Element {
         }
     }
 
-    public void setLeftClickAction(ButtonAction leftClickAction) {
+    public Button setLeftClickAction(ButtonAction leftClickAction) {
         this.leftClickAction = leftClickAction;
+        return this;
     }
 
-    public void setRightClickAction(ButtonAction rightClickAction) {
+    public Button setRightClickAction(ButtonAction rightClickAction) {
         this.rightClickAction = rightClickAction;
+        return this;
     }
 
     public ButtonAction getLeftClickAction() {
