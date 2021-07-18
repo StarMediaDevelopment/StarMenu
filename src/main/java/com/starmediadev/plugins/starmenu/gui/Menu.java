@@ -44,6 +44,8 @@ public class Menu implements InventoryHolder {
         int position = (row * 9) + column;
         Slot slot = getSlot(position);
         slot.setElement(element);
+        element.setStaticIndex(position);
+        this.elements.put(position, element);
     }
     
     public void addElements(Element... elements) {
@@ -55,6 +57,10 @@ public class Menu implements InventoryHolder {
     public void setFillerRange(Material material, int from, int to) {
         for (int i = from; i <= to; i++) {
             Slot slot = this.slots.get(i);
+            if (slot == null) {
+                plugin.getLogger().severe("Slot " + i + " from the menu " + this.name + " is null.");
+                return;
+            }
             if (slot.getElement() == null) {
                 FillerElement element = new FillerElement(material, i);
                 slot.setElement(element);
@@ -66,6 +72,10 @@ public class Menu implements InventoryHolder {
     public void setFillerSlots(Material material, int... slots) {
         for (int s : slots) {
             Slot slot = this.slots.get(s);
+            if (slot == null) {
+                plugin.getLogger().severe("Slot " + s + " from the menu " + this.name + " is null.");
+                return;
+            }
             if (slot.getElement() == null) {
                 FillerElement element = new FillerElement(material, s);
                 slot.setElement(element);
@@ -99,20 +109,20 @@ public class Menu implements InventoryHolder {
             slots.get(element.getStaticIndex()).setElement(element);
         }
 
-        for (Element element : fillerElements.values()) {
-            Slot slot = slots.get(element.getStaticIndex());
-            if (slot.getElement() == null || !slot.getElement().isStatic()) {
-                slot.setElement(element);
-            }
-        }
-
         int pageSize = invSize - staticElements.size();
         int totalPages = (int) Math.ceil(nonStaticElements.size() / (pageSize * 1.0));
         
         int elementStart = (currentPage - 1) * pageSize;
         for (Slot slot : this.slots.values()) {
-            if (slot.getElement() == null || !slot.getElement().isStatic()) {
+            if (slot.getElement() == null || slot.getElement() instanceof FillerElement || !slot.getElement().isStatic()) {
                 slot.setElement(nonStaticElements.get(elementStart++));
+            }
+        }
+
+        for (Element element : fillerElements.values()) {
+            Slot slot = slots.get(element.getStaticIndex());
+            if (slot.getElement() == null) {
+                slot.setElement(element);
             }
         }
         

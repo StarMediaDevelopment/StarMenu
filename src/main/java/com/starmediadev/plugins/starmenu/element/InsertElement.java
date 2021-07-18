@@ -32,5 +32,7 @@ public abstract class InsertElement extends Element {
     }
 
     public abstract void onInsert(Player player, Menu menu, ItemStack itemStack);
-    public abstract void onRemove(Player player, Menu menu);
+    public void onRemove(Player player, Menu menu) {
+        
+    }
 }

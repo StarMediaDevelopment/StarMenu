@@ -22,6 +22,11 @@ public class Element {
         }
     }
 
+    public void setStaticIndex(int staticIndex) {
+        this.staticIndex = staticIndex;
+        this.isStatic = true;
+    }
+
     public boolean isReplaceable() {
         return isReplaceable;
     }
