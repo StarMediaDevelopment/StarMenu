@@ -42,15 +42,7 @@ public class Menu implements InventoryHolder {
     
     public void setElement(int row, int column, Element element) {
         int position = (row * 9) + column;
-        Slot slot = getSlot(position);
-        if (slot == null) {
-            System.out.println("Slot " + position + " is null");
-            this.slots.put(position, new Slot(position));
-            slot = getSlot(position);
-        }
-        slot.setElement(element);
-        element.setStaticIndex(position);
-        this.elements.put(position, element);
+        setElement(position, element);
     }
     
     public void addElements(Element... elements) {
@@ -74,6 +66,17 @@ public class Menu implements InventoryHolder {
         }
     }
     
+    public void setElement(int position, Element element) {
+        Slot slot = getSlot(position);
+        if (slot == null) {
+            this.slots.put(position, new Slot(position));
+            slot = getSlot(position);
+        }
+        slot.setElement(element);
+        element.setStaticIndex(position);
+        this.elements.put(position, element);
+    }
+    
     public void setFillerSlots(Material material, int... slots) {
         for (int s : slots) {
             Slot slot = this.slots.get(s);
@@ -83,8 +86,7 @@ public class Menu implements InventoryHolder {
             }
             if (slot.getElement() == null) {
                 FillerElement element = new FillerElement(material, s);
-                slot.setElement(element);
-                addElement(element);
+                setElement(s, element);
             }
         }
     }
@@ -120,9 +122,9 @@ public class Menu implements InventoryHolder {
                 slot.setElement(element);
             }
         }
-
+    
         int pageSize = invSize - staticElements.size();
-        int totalPages = (int) Math.ceil(nonStaticElements.size() / (pageSize * 1.0));
+        //int totalPages = (int) Math.ceil(nonStaticElements.size() / (pageSize * 1.0));
         
         int elementStart = (currentPage - 1) * pageSize;
         for (Slot slot : this.slots.values()) {
@@ -171,7 +173,6 @@ public class Menu implements InventoryHolder {
     }
     
     protected Pair<NormalElements, StaticElements> filterElements() {
-        int invSize = rows * 9;
         var normalElements = new NormalElements();
         var staticElements = new StaticElements();
         for (Element value : this.elements.values()) {
