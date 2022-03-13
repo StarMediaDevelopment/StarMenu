@@ -43,6 +43,11 @@ public class Menu implements InventoryHolder {
     public void setElement(int row, int column, Element element) {
         int position = (row * 9) + column;
         Slot slot = getSlot(position);
+        if (slot == null) {
+            System.out.println("Slot " + position + " is null");
+            this.slots.put(position, new Slot(position));
+            slot = getSlot(position);
+        }
         slot.setElement(element);
         element.setStaticIndex(position);
         this.elements.put(position, element);
@@ -108,21 +113,21 @@ public class Menu implements InventoryHolder {
         for (Element element : normalStaticElements.values()) {
             slots.get(element.getStaticIndex()).setElement(element);
         }
+    
+        for (Element element : fillerElements.values()) {
+            Slot slot = slots.get(element.getStaticIndex());
+            if (slot.getElement() == null) {
+                slot.setElement(element);
+            }
+        }
 
         int pageSize = invSize - staticElements.size();
         int totalPages = (int) Math.ceil(nonStaticElements.size() / (pageSize * 1.0));
         
         int elementStart = (currentPage - 1) * pageSize;
         for (Slot slot : this.slots.values()) {
-            if (slot.getElement() == null || slot.getElement() instanceof FillerElement || !slot.getElement().isStatic()) {
+            if (slot.getElement() == null || !slot.getElement().isStatic()) {
                 slot.setElement(nonStaticElements.get(elementStart++));
-            }
-        }
-
-        for (Element element : fillerElements.values()) {
-            Slot slot = slots.get(element.getStaticIndex());
-            if (slot.getElement() == null) {
-                slot.setElement(element);
             }
         }
         
