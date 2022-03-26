@@ -29,6 +29,7 @@ public class StarMenu extends JavaPlugin implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         Player player = (Player) e.getWhoClicked();
+        if (e.getClickedInventory() == null) return;
         if (!(e.getClickedInventory().getHolder() instanceof Menu menu))
             return;
         if (e.getSlot() != e.getRawSlot())
