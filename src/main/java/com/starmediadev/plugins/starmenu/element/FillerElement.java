@@ -6,7 +6,7 @@ import org.bukkit.Material;
 public class FillerElement extends Element {
 
     public FillerElement(Material material, int staticIndex) {
-        super(ItemBuilder.start(material).setDisplayName("&f").build(), staticIndex);
+        super(ItemBuilder.start(material).displayName("&f").build(), staticIndex);
         this.isReplaceable = true;
     }
 }

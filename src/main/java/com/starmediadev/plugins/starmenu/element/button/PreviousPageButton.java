@@ -13,7 +13,7 @@ public class PreviousPageButton extends Button {
     }
 
     public PreviousPageButton(Material material, String color, int staticIndex) {
-        super(ItemBuilder.start(material).setDisplayName(color + "Previous Page").build(), staticIndex);
+        super(ItemBuilder.start(material).displayName(color + "Previous Page").build(), staticIndex);
         this.leftClickAction = (player, menu, click) -> {
             int totalPages = menu.getTotalPages();
             int currentPage = menu.getCurrentPage();
