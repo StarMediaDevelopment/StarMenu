@@ -14,6 +14,10 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.plugin.ServicePriority;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * Main class of the library
+ * The MenuManager class is registered as a Bukkit Service and registers the events needed as well as the default menu provider
+ */
 public class StarMenu extends JavaPlugin implements Listener {
 
     private MenuManager menuManager;

@@ -4,6 +4,9 @@ import com.starmediadev.plugins.starmenu.gui.Menu;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+/**
+ * An element to allow inserting of items. This is an abstract class, so it must be extended
+ */
 public abstract class InsertElement extends Element {
     
     protected boolean keepOnPageMove = false;

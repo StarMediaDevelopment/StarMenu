@@ -2,10 +2,13 @@ package com.starmediadev.plugins.starmenu.slot;
 
 import com.starmediadev.plugins.starmenu.element.Element;
 
+/**
+ * A utility class used to make it easier to manage the menus internally
+ */
 public class Slot {
     
-    protected int index; //The slot index for the inventory.
-    protected Element element; //The current element of the slot
+    protected int index;
+    protected Element element;
 
     public Slot(int index) {
         this.index = index;

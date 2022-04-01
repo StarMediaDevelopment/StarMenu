@@ -6,12 +6,26 @@ import com.starmediadev.plugins.starmenu.StarMenu;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 
+/**
+ * Provided class for easier creation of the next page functionality
+ */
 public class NextPageButton extends Button {
-
+    
+    /**
+     * Constructs a new NextPageButton
+     * @param material The material of the item
+     * @param color The color for the display name
+     */
     public NextPageButton(Material material, String color) {
         this(material, color, -1);
     }
-
+    
+    /**
+     * Constructs a new NextPageButton
+     * @param material The material of the item
+     * @param color The color of the displayname
+     * @param staticIndex The static index - Used internally
+     */
     public NextPageButton(Material material, String color, int staticIndex) {
         super(ItemBuilder.start(material).displayName(color + "Next Page").build(), staticIndex);
         this.leftClickAction = (player, menu, click) -> {

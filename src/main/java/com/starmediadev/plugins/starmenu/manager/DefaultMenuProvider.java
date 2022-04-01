@@ -3,6 +3,9 @@ package com.starmediadev.plugins.starmenu.manager;
 import com.starmediadev.plugins.starmenu.gui.Menu;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * The default menu provider for the API based on the main Menu class
+ */
 public class DefaultMenuProvider extends MenuProvider {
 
     public DefaultMenuProvider(JavaPlugin plugin, String name, String title) {

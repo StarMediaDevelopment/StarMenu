@@ -3,6 +3,9 @@ package com.starmediadev.plugins.starmenu.manager;
 import com.starmediadev.plugins.starmenu.gui.Menu;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * A class based on the Menu registry, see the MenuManager documentation
+ */
 public abstract class MenuProvider {
     
     protected JavaPlugin plugin;

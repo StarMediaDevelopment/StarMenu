@@ -16,6 +16,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
+/**
+ * A class that represents a GUI or a menu, can be extended or instantiated directly
+ */
 public class Menu implements InventoryHolder {
     protected JavaPlugin plugin;
     protected String name;
@@ -25,6 +28,14 @@ public class Menu implements InventoryHolder {
     protected Map<Integer, Slot> slots = new TreeMap<>();
     protected int currentPage = 1;
     
+    /**
+     * Creates a new Menu
+     * @param plugin The Plugin
+     * @param name The name of the menu
+     * @param title The title displayed to the player
+     * @param rows How many rows to be created (Max of 6)
+     * @throws IllegalArgumentException If the rows exceeds 6
+     */
     public Menu(JavaPlugin plugin, String name, String title, int rows) {
         this.plugin = plugin;
         this.name = name;
@@ -40,17 +51,33 @@ public class Menu implements InventoryHolder {
         }
     }
     
+    /**
+     * Sets a menu element
+     * @param row The row for the element
+     * @param column The colum for the element
+     * @param element The element itself
+     */
     public void setElement(int row, int column, Element element) {
         int position = (row * 9) + column;
         setElement(position, element);
     }
     
+    /**
+     * Adds elements to the menu
+     * @param elements The elements
+     */
     public void addElements(Element... elements) {
         for (Element element : elements) {
             addElement(element);
         }
     }
     
+    /**
+     * Sets the range for the filler elements
+     * @param material The material of the filler
+     * @param from The start index
+     * @param to The end index
+     */
     public void setFillerRange(Material material, int from, int to) {
         for (int i = from; i <= to; i++) {
             Slot slot = this.slots.get(i);
@@ -66,6 +93,11 @@ public class Menu implements InventoryHolder {
         }
     }
     
+    /**
+     * Sets an element to the menu
+     * @param position The direct position
+     * @param element The element
+     */
     public void setElement(int position, Element element) {
         Slot slot = getSlot(position);
         if (slot == null) {
@@ -77,6 +109,11 @@ public class Menu implements InventoryHolder {
         this.elements.put(position, element);
     }
     
+    /**
+     * Sets the filler slots of the menu
+     * @param material The Material for the filler
+     * @param slots The slots to be set
+     */
     public void setFillerSlots(Material material, int... slots) {
         for (int s : slots) {
             Slot slot = this.slots.get(s);
@@ -90,7 +127,11 @@ public class Menu implements InventoryHolder {
             }
         }
     }
-
+    
+    /**
+     * Generates the inventory
+     * @return The Bukkit Inventory
+     */
     public Inventory getInventory() {
         if (currentPage < 1) {
             currentPage = 1;
@@ -141,26 +182,51 @@ public class Menu implements InventoryHolder {
         return inv;
     }
     
+    /**
+     * Adds an element
+     * @param element The element
+     */
     public void addElement(Element element) {
         this.elements.add(element);
     }
     
+    /**
+     * Removes an element
+     * @param index The index of the element
+     */
     public void removeElement(int index) {
         this.elements.remove(index);
     }
     
+    /**
+     * Gets the slot value
+     * @param index The index
+     * @return The slot
+     */
     public Slot getSlot(int index) {
         return this.slots.get(index);
     }
-
+    
+    /**
+     * Gets the current page of this menu
+     * @return The current page
+     */
     public int getCurrentPage() {
         return currentPage;
     }
-
+    
+    /**
+     * Sets the current page
+     * @param currentPage The new page
+     */
     public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
     }
     
+    /**
+     * Gets the total pages in this menu
+     * @return The total pages
+     */
     public int getTotalPages() {
         int invSize = rows * 9;
         var filtered = filterElements();
@@ -172,6 +238,10 @@ public class Menu implements InventoryHolder {
         return (int) Math.ceil(normalElements.size() / (pageSize * 1.0));
     }
     
+    /**
+     * Filters the elements between normal and static based elements
+     * @return The sorted values
+     */
     protected Pair<NormalElements, StaticElements> filterElements() {
         var normalElements = new NormalElements();
         var staticElements = new StaticElements();
