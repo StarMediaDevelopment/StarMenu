@@ -85,4 +85,12 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>starmediadev-maven</id>
+            <name>Star Media Development LLC Maven</name>
+            <url>https://repo.starmediadev.com/snapshots</url>
+        </repository>
+    </distributionManagement>
 </project>
